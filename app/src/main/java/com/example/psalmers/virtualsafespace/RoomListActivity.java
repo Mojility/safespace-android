@@ -1,5 +1,7 @@
 package com.example.psalmers.virtualsafespace;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RoomListActivity extends AppCompatActivity {
 
@@ -22,22 +27,24 @@ public class RoomListActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.room_list);
 
-        String[] rooms = new String[]{
-                "Android List View",
-                "Adapter implementation",
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter",
-                "Android Example List View"
-        };
+        final Room[] roomArray = {new Room("Test Room 1", 0),
+                new Room("Test Room 2", 1),
+                new Room("Test Room 3", 2),
+                new Room("Test Room 4", 3),
+                new Room("Test Room 5", 4)};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayList<Room> rooms = new ArrayList<>(Arrays.asList(roomArray));
+
+        ArrayList<String> roomNames = new ArrayList<>();
+        for (Room room : rooms) {
+            roomNames.add(room.name);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
-                rooms);
+                roomNames);
 
 
         listView.setAdapter(adapter);
@@ -49,6 +56,12 @@ public class RoomListActivity extends AppCompatActivity {
                                     int position,
                                     long id) {
                 String itemValue = (String) listView.getItemAtPosition(position);
+
+                Context context = getApplicationContext();
+                Intent intent = new Intent(context, RoomActivity.class);
+                DataManager.getInstance().setCurrentRoom(roomArray[position]);
+                intent.putExtra("roomname", roomArray[position].name);
+                context.startActivity(intent);
             }
 
         });

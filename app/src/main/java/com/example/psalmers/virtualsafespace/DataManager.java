@@ -8,6 +8,7 @@ import android.content.Context;
 
 public class DataManager {
     private static DataManager ourInstance;
+    private Room currentRoom;
 
     public static DataManager getInstance() {
         if (ourInstance == null) {
@@ -18,4 +19,11 @@ public class DataManager {
     }
 
 
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
 }
