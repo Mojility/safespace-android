@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">VirtualSafeSpace</string>
+    <string name="enter_invitation_token">Enter Invitation Token</string>
+    <string name="token_button">Submit</string>
+</resources>
